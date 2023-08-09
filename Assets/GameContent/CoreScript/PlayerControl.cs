@@ -6,71 +6,71 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private float LiftingForce;                                             //Параметр подъемной силы
-    private Rigidbody2D _Rigidbody2D;                                                        //Пустой объект иметации физики 
-    private Transform Target;                                                                //Еда
+    [SerializeField] private float LiftingForce;                                             //ГЏГ Г°Г Г¬ГҐГІГ° ГЇГ®Г¤ГєГҐГ¬Г­Г®Г© Г±ГЁГ«Г»
+    private Rigidbody2D _Rigidbody2D;                                                        //ГЏГіГ±ГІГ®Г© Г®ГЎГєГҐГЄГІ ГЁГ¬ГҐГІГ Г¶ГЁГЁ ГґГЁГ§ГЁГЄГЁ 
+    private Transform Target;                                                                //Г…Г¤Г 
     
     private void Start()
     {
-        _Rigidbody2D = GetComponent<Rigidbody2D>();                                          //Присваеваем физический объект                                       
+        _Rigidbody2D = GetComponent<Rigidbody2D>();                                          //ГЏГ°ГЁГ±ГўГ ГҐГўГ ГҐГ¬ ГґГЁГ§ГЁГ·ГҐГ±ГЄГЁГ© Г®ГЎГєГҐГЄГІ                                       
     }
 
     
     private void Update()
     {
-        MovePlayer();                                                                        //Движение игрока
-        MoveFood();                                                                          //Движение еды к игроку
+        MovePlayer();                                                                        //Г„ГўГЁГ¦ГҐГ­ГЁГҐ ГЁГЈГ°Г®ГЄГ 
+        MoveFood();                                                                          //Г„ГўГЁГ¦ГҐГ­ГЁГҐ ГҐГ¤Г» ГЄ ГЁГЈГ°Г®ГЄГі
     }
 
 
-    //Проверяем столкновение объекта с колизией
+    //ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г±ГІГ®Г«ГЄГ­Г®ГўГҐГ­ГЁГҐ Г®ГЎГєГҐГЄГІГ  Г± ГЄГ®Г«ГЁГ§ГЁГҐГ©
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Dead") 
         {
-            ManagerGame.Core.GameOver();                                                     //Если каснулись объект препятствия
-            Target = null;                                                                   //Убираем цель
+            ManagerGame.Core.GameOver();                                                     //Г…Г±Г«ГЁ ГЄГ Г±Г­ГіГ«ГЁГ±Гј Г®ГЎГєГҐГЄГІ ГЇГ°ГҐГЇГїГІГ±ГІГўГЁГї
+            Target = null;                                                                   //Г“ГЎГЁГ°Г ГҐГ¬ Г¶ГҐГ«Гј
         }
 
         if (collision.gameObject.tag == "Food")
         {
-            ManagerGame.Core.AddPoints();                                                    //Если коснулись еды, получаем очко
-            Destroy(collision.gameObject);                                                   //Удаляем объект еда
+            ManagerGame.Core.AddPoints();                                                    //Г…Г±Г«ГЁ ГЄГ®Г±Г­ГіГ«ГЁГ±Гј ГҐГ¤Г», ГЇГ®Г«ГіГ·Г ГҐГ¬ Г®Г·ГЄГ®
+            Destroy(collision.gameObject);                                                   //Г“Г¤Г Г«ГїГҐГ¬ Г®ГЎГєГҐГЄГІ ГҐГ¤Г 
         }
     }
 
-    //Проверяем столкновение объекта с триггером
+    //ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г±ГІГ®Г«ГЄГ­Г®ГўГҐГ­ГЁГҐ Г®ГЎГєГҐГЄГІГ  Г± ГІГ°ГЁГЈГЈГҐГ°Г®Г¬
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Food")
         {
             if (Target == null)
             {
-                Target = collision.transform;                                               //Если коснулись область тригерра еды и объект цели пуст, то получаем его объект положения
+                Target = collision.transform;                                               //Г…Г±Г«ГЁ ГЄГ®Г±Г­ГіГ«ГЁГ±Гј Г®ГЎГ«Г Г±ГІГј ГІГ°ГЁГЈГҐГ°Г°Г  ГҐГ¤Г» ГЁ Г®ГЎГєГҐГЄГІ Г¶ГҐГ«ГЁ ГЇГіГ±ГІ, ГІГ® ГЇГ®Г«ГіГ·Г ГҐГ¬ ГҐГЈГ® Г®ГЎГєГҐГЄГІ ГЇГ®Г«Г®Г¦ГҐГ­ГЁГї
             }
           
         }
     }
 
-    //Управление игроком
+    //Г“ГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГЁГЈГ°Г®ГЄГ®Г¬
     private void MovePlayer()       
     {   
         if (Input.GetMouseButton(0))                                                                                                                  
         {            
-            _Rigidbody2D.AddForce(new Vector3(0, LiftingForce));                           //Если нажатие левая кнопка мыши, то поднимаем игрока вверх, если не нажата, то падает ввниз
+            _Rigidbody2D.AddForce(new Vector3(0, LiftingForce));                           //Г…Г±Г«ГЁ Г­Г Г¦Г ГІГЁГҐ Г«ГҐГўГ Гї ГЄГ­Г®ГЇГЄГ  Г¬Г»ГёГЁ, ГІГ® ГЇГ®Г¤Г­ГЁГ¬Г ГҐГ¬ ГЁГЈГ°Г®ГЄГ  ГўГўГҐГ°Гµ, ГҐГ±Г«ГЁ Г­ГҐ Г­Г Г¦Г ГІГ , ГІГ® ГЇГ Г¤Г ГҐГІ ГўГўГ­ГЁГ§
         }
     }
 
-    //управление едой
+    //ГіГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГҐГ¤Г®Г©
     private void MoveFood()
     {
         if (Target != null)
         {
-            float distance = Vector2.Distance(Target.transform.position, transform.position);       //Если объект не пуст то проверяем дистанцию от еды до игрока
-            Target.position = Vector2.Lerp(Target.transform.position, transform.position, 0.002f);  //Подътягиваем объект еды на сябя
-            if (distance>3)
+            float distance = Vector2.Distance(Target.transform.position, transform.position);       //Г…Г±Г«ГЁ Г®ГЎГєГҐГЄГІ Г­ГҐ ГЇГіГ±ГІ ГІГ® ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ Г¤ГЁГ±ГІГ Г­Г¶ГЁГѕ Г®ГІ ГҐГ¤Г» Г¤Г® ГЁГЈГ°Г®ГЄГ 
+            Target.position = Vector2.Lerp(Target.transform.position, transform.position, 0.02f);   //ГЏГ®Г¤ГєГІГїГЈГЁГўГ ГҐГ¬ Г®ГЎГєГҐГЄГІ ГҐГ¤Г» Г­Г  Г±ГїГЎГї
+            if (distance>2.8f)
             {
-                Target = null;                                                                      //Если объект далеко, то отпускаем его и не притгиваем 
+                Target = null;                                                                      //Г…Г±Г«ГЁ Г®ГЎГєГҐГЄГІ Г¤Г Г«ГҐГЄГ®, ГІГ® Г®ГІГЇГіГ±ГЄГ ГҐГ¬ ГҐГЈГ® ГЁ Г­ГҐ ГЇГ°ГЁГІГЈГЁГўГ ГҐГ¬ 
             }
         }
     }
